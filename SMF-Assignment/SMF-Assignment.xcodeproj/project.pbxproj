@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2951735A23377D6D00BAA932 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2951735923377D6D00BAA932 /* BigInt.swift */; };
+		2951735C23389B7600BAA932 /* Swift-Big-Number-Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2951735B23389B7600BAA932 /* Swift-Big-Number-Core.swift */; };
 		29A5D55D23354827002BFA43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5D55C23354827002BFA43 /* AppDelegate.swift */; };
 		29A5D55F23354827002BFA43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5D55E23354827002BFA43 /* ViewController.swift */; };
 		29A5D56223354827002BFA43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A5D56023354827002BFA43 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2951735923377D6D00BAA932 /* BigInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigInt.swift; sourceTree = "<group>"; };
+		2951735B23389B7600BAA932 /* Swift-Big-Number-Core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Swift-Big-Number-Core.swift"; sourceTree = "<group>"; };
 		29A5D55923354827002BFA43 /* SMF-Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMF-Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29A5D55C23354827002BFA43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29A5D55E23354827002BFA43 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,8 +81,10 @@
 		29A5D55B23354827002BFA43 /* SMF-Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				2951735B23389B7600BAA932 /* Swift-Big-Number-Core.swift */,
 				29A5D55C23354827002BFA43 /* AppDelegate.swift */,
 				29A5D55E23354827002BFA43 /* ViewController.swift */,
+				2951735923377D6D00BAA932 /* BigInt.swift */,
 				29A5D56023354827002BFA43 /* Main.storyboard */,
 				29A5D56323354829002BFA43 /* Assets.xcassets */,
 				29A5D56523354829002BFA43 /* LaunchScreen.storyboard */,
@@ -199,6 +205,8 @@
 			files = (
 				29A5D55F23354827002BFA43 /* ViewController.swift in Sources */,
 				29A5D55D23354827002BFA43 /* AppDelegate.swift in Sources */,
+				2951735C23389B7600BAA932 /* Swift-Big-Number-Core.swift in Sources */,
+				2951735A23377D6D00BAA932 /* BigInt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

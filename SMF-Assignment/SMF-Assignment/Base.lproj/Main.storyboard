@@ -18,8 +18,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qok-Xl-0Np">
+                                <rect key="frame" x="0.0" y="44" width="414" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="dHy-lJ-EnA"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="With Pagination"/>
+                                    <segment title="Load All"/>
+                                </segments>
+                                <connections>
+                                    <action selector="indexChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fZB-sv-MUg"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iae-Sf-Red">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="74" width="414" height="788"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" id="Iav-ON-YTp">
@@ -43,8 +56,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="qok-Xl-0Np" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3Hv-5F-WEa"/>
+                            <constraint firstItem="qok-Xl-0Np" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="OLV-40-XaU"/>
                             <constraint firstItem="Uog-NV-tPe" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="P6t-h0-OAF"/>
-                            <constraint firstItem="Iae-Sf-Red" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="RQj-8k-h54"/>
+                            <constraint firstItem="Iae-Sf-Red" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="RQj-8k-h54"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qok-Xl-0Np" secondAttribute="trailing" id="Yeh-RC-7i3"/>
                             <constraint firstItem="Uog-NV-tPe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fBF-Ey-hYi"/>
                             <constraint firstItem="Iae-Sf-Red" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="joD-w4-j5v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Iae-Sf-Red" secondAttribute="trailing" id="yiQ-J5-rgq"/>
@@ -54,6 +70,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndictor" destination="Uog-NV-tPe" id="9Qt-i3-GVx"/>
+                        <outlet property="segmentControl" destination="qok-Xl-0Np" id="xkm-NQ-VE7"/>
                         <outlet property="tableView" destination="Iae-Sf-Red" id="O5Z-ie-cuI"/>
                     </connections>
                 </viewController>
