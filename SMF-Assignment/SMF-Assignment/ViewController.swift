@@ -14,11 +14,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndictor: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     var dataSourceArray:[BInt]  = []
+    
+    var componentDataSourceArray:[[BInt]] = []
    
     var currentIndex = UInt64(0)
     var currentScreen = 0
     var mem = [UInt64: BInt]()
     var totalRows = UInt64.max
+    var component:UInt64 = 100000
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,23 +37,68 @@ class ViewController: UIViewController {
         
         activityIndictor.startAnimating()
         
-        let concurrentQueue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".concurrentQueue", qos: .utility, attributes: .concurrent)
-        concurrentQueue.async {
-            for value in startValue ..< (maxValue) {
+        let concurrentQueue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".concurrentQueue", qos: .background, attributes: .concurrent)
+        
+        if self.currentScreen == 0 {
+            concurrentQueue.async {
+                for value in startValue ..< (maxValue) {
+                    
+                    let resu = self.fib(value)
+                    self.dataSourceArray.append(resu)
+                }
                 
-                let resu = self.fib(value)
-                self.dataSourceArray.append(resu)
+                DispatchQueue.main.async {
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.activityIndictor.stopAnimating()
+                    self.tableView.reloadData()
+                    
+                }
+            }
+
+        } else {
+            var startV = UInt64(0)
+            var endV  = UInt64(0)
+            let maxV = UInt64.max
+            let concurSecondQueue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".concurrentQueue", qos: .background, attributes: .concurrent)
+            
+            
+            concurSecondQueue.async {
+                for index in  stride(from: 100000, to: maxV, by: 100000) {
+                    startV = endV
+                    endV = endV + UInt64(index)
+                    var tempArray:[BInt] = []
+                    concurrentQueue.async {
+                        for value in startV ..< (endV) {
+                            
+                            let resu = self.fibonacci(value)
+                            tempArray.append(resu)
+                        }
+                        self.componentDataSourceArray.append(tempArray)
+                        DispatchQueue.main.async {
+                            if startV >= maxV {
+                                self.activityIndictor.stopAnimating()
+                            }
+                            self.tableView.reloadData()
+                            
+                        }
+                    }
+                    
+                }
+                
+                if startV >= maxV {
+                    DispatchQueue.main.async {
+                        self.activityIndictor.stopAnimating()
+                        self.tableView.reloadData()
+                        
+                    }
+                }
+                
+                
             }
             
-            DispatchQueue.main.async {
-                self.tableView.delegate = self
-                self.tableView.dataSource = self
-                self.activityIndictor.stopAnimating()
-                self.tableView.reloadData()
-                
-            }
+            
         }
-        
         
     }
     
@@ -74,7 +122,6 @@ class ViewController: UIViewController {
         }
         else {
             result = fib(num - 1) + fib(num - 2 )
-           // result = fib(num - 1) + fib(num - 2)
         }
 
         mem[num] = result
@@ -106,12 +153,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func indexChanged(_ sender: Any) {
+        self.dataSourceArray.removeAll()
+        self.componentDataSourceArray.removeAll()
+        self.tableView.reloadData()
         switch segmentControl.selectedSegmentIndex
         {
         case 0:
             currentScreen  = 0
         case 1:
             currentScreen  = 1
+            calculateSequence(startValue: 0, maxValue: 0)
         default:
             break
         }
@@ -125,14 +176,32 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource {
    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSourceArray.count
+        
+        if currentScreen == 0 {
+            return dataSourceArray.count
+        }
+        
+        return componentDataSourceArray[section].count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if currentScreen == 0 {
+            return 1
+        }
+        
+        return componentDataSourceArray.count
     }
     
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        cell.textLabel?.text = "f (\(indexPath.row) ) = \(dataSourceArray[indexPath.row])"
+        if currentScreen == 0 {
+            cell.textLabel?.text = "f (\(indexPath.row) ) = \(dataSourceArray[indexPath.row])"
+        } else {
+            cell.textLabel?.text = "f (\(indexPath.row) ) = \(componentDataSourceArray[indexPath.section][indexPath.row])"
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
